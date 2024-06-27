@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Menu</title>
+</head>
+<body>
+    <h1>Menu</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Price</th>
+                <th>Category</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="menuItem : ${menuItems}">
+                <td th:text="${menuItem.name}">Name</td>
+                <td th:text="${menuItem.description}">Description</td>
+                <td th:text="${menuItem.price}">Price</td>
+                <td th:text="${menuItem.category}">Category</td>
+                <td>
+                    <form th:action="@{/order/add}" method="post">
+                        <input type="hidden" th:value="${menuItem.id}" name="menuItemId"/>
+                        <input type="number" name="quantity" min="1" value="1" required/>
+                        <button type="submit">Add to Cart</button>
+                    </form>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <a th:href="@{/order/cart}">View Cart</a>
+</body>
+</html>
